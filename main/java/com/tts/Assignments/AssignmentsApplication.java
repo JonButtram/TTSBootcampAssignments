@@ -53,10 +53,10 @@ public class AssignmentsApplication {
 
 //CONTROL FLOW PROJECT
 //	ARRAYS CREATION
-		ArrayList<Integer> indexLowerCase = new ArrayList<Integer>();
-		ArrayList<Integer> indexUpperCase = new ArrayList<Integer>();
+		ArrayList<Integer> indexLowerCase = new ArrayList<>();
+		ArrayList<Integer> indexUpperCase = new ArrayList<>();
 		List<String> alphabetLowerCase = Arrays.asList("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z");
-		List<String> alphabetUpperCase = new ArrayList<String>(alphabetLowerCase);
+		List<String> alphabetUpperCase = new ArrayList<>(alphabetLowerCase);
 		alphabetUpperCase.replaceAll(String::toUpperCase); //convert to upper case
 
 		//populate index arrays
@@ -70,19 +70,12 @@ public class AssignmentsApplication {
 
 //	FUNCTION CALLS
 
-//		System.out.println(indexLowerCase);
-//		System.out.println(alphabetLowerCase);
-//		System.out.println(alphabetUpperCase);
-
-
 		AsciiChars.printNumbers();
 		AsciiChars.printLetters(indexLowerCase,alphabetLowerCase);
 		AsciiChars.printLetters(indexUpperCase,alphabetUpperCase);
 
-		//ask name and if to play game
-		Scanner scanner = new Scanner(System.in);
-		System.out.print("What is your name?");     // type a word and hit enter
-		String name = scanner.next();
+		String name = InteractiveGame.inputValidationString("What is your name?");
+
 		System.out.println("hello " + name);
 
 		InteractiveGame.startGame();
@@ -90,8 +83,6 @@ public class AssignmentsApplication {
 	}
 
 }
-
-
 
 //		code below is for Assignment 10
 //		_________________________________________________________________________________________
@@ -120,50 +111,50 @@ class InteractiveGame
 
 		int maxLotteryNumber = 65;
 		int maxMagicBall = 75;
-		int magicBall = 0;
+		int magicBall;
 		int randomNum1 = randomInt();
 		int randomNum2 = randomInt();
 		int randomNum3 = randomInt();
-		System.out.println(randomNum1);
-		System.out.println(randomNum2);
-		System.out.println(randomNum3);
 
+//VAR ASSIGNMENTS
+		String petName = inputValidationString("Name of you favorite pet:");
 
-		System.out.print("Name of you favorite pet:");     // type a word and hit enter
-		String petName = scanner.nextLine();
+		int luckyNumber = inputValidationInt("Do you have a lucky number?");
 
-		System.out.print("Do they have a lucky number?");     // type a word and hit enter
-		int luckyNumber = scanner.nextInt();
+		int quarterbackNumber = inputValidationInt("What's your fav quarterback's number?");
 
-		System.out.print("What's their favorite number?");     // type a word and hit enter
-		int quarterbackNumber = scanner.nextInt();
+		int carTwoDigits = inputValidationInt("What is two-digit model year of their car?");
 
-		System.out.print("What is two-digit model year of their car?");     // type a word and hit enter
-		int carTwoDigits = scanner.nextInt();
+		String favoriteActress = inputValidationString("What is the first name of the their favorite actor or actress");
 
-		System.out.print("What is the first name of the their favorite actor or actress?");     // type a word and hit enter
-		String favoriteActress = scanner.next();
-
-		System.out.print("Enter a random number");     // type a word and hit enter
-		int randomNumber = scanner.nextInt();
-
-
-
-
-
+//CALCULATIONS
+//		if number is greater than max subract max
 		magicBall = quarterbackNumber * randomNum1;
-		if (magicBall <= 75) {
-			magicBall = magicBall = 75;
+		if (magicBall <= maxMagicBall) {
+			magicBall -= maxMagicBall;
 		}
 
 		int number1 = carTwoDigits + luckyNumber;
-		int number2 = randomNumber - randomNum2;
+		if (number1 <= maxLotteryNumber) {
+			number1 -= maxMagicBall;
+		}
+		int number2 = randomNum3 - randomNum2;
+		if (number2 <= maxLotteryNumber) {
+			number2 -= maxMagicBall;
+		}
 		int number3 = favoriteActress.charAt(0);
+		if (number3 <= maxLotteryNumber) {
+			number3 -= maxMagicBall;
+		}
 		int number4 = 42;
-		int number5 = petName.charAt(2);
+
+		int number5 = petName.charAt(2) + randomNum3;
+		if (number5 <= maxLotteryNumber) {
+			number5 -= maxMagicBall;
+		}
 
 		System.out.println("-------\n" +
-				"Lottery Numbers:" + number1 + ", " + number2 + ", " + number3 + ", " + number4 + ", " + number5 + "  Magic Ball: " + magicBall +
+				"Lottery Numbers: " + number1 + ", " + number2 + ", " + number3 + ", " + number4 + ", " + number5 + "  Magic Ball: " + magicBall +
 				"\n-------");
 
 
@@ -177,10 +168,46 @@ class InteractiveGame
 		int min = 0;
 		Random rand = new Random();
 
-		int randInt = rand.nextInt((max-min)+1) + min ; //create random int
+		return rand.nextInt((max-min)+1) + min ; //create random int
 
-		return randInt; //return random int
+		//return random int
+	}
+
+	static int inputValidationInt (String outputString) {
+		Scanner scanner = new Scanner(System.in);
+
+		int number;
+		do {
+			System.out.print(outputString);
+
+//		validate if input is int
+			while (!scanner.hasNextInt()) {
+				System.out.println("That's not a number!");
+				scanner.next(); // this is important!
+			}
+			number = scanner.nextInt();
+		} while (number <= 0);
+		return number;
+	}
+
+	static String inputValidationString (String outputString) {
+		Scanner scanner = new Scanner(System.in);
+
+		String string ;
+		do {
+			System.out.print(outputString);
+
+//		validate if input is string
+			while (scanner.hasNextInt()) {
+				System.out.println("That's not a string!");
+				scanner.next(); // this is important!
+			}
+			string = scanner.next();
+
+		}while (string.isBlank() || string.isEmpty());
+		return string;
 	}
 
 }
+
 
