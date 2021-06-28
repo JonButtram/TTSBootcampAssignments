@@ -51,6 +51,7 @@ public class AssignmentsApplication {
 			});
 		* */
 
+
 //CONTROL FLOW PROJECT
 //	ARRAYS CREATION
 		ArrayList<Integer> indexLowerCase = new ArrayList<>();
