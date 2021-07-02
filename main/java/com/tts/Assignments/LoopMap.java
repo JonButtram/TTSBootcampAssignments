@@ -1,6 +1,5 @@
 package com.tts.Assignments;
 
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
@@ -11,7 +10,7 @@ public class LoopMap {
 
         ArrayList<Integer> numberList = new ArrayList<>();
 
-        int arraySize = 3;
+        int arraySize = 5;
 
         for (int i = 1; i <= arraySize; i++ ) {
             int numberInput = inputValidationInt("Insert a number. Press Enter (Input " + i + ")\n");
